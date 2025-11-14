@@ -11,7 +11,9 @@ public class CreateScheduleResponse {
     private final long scheduleId;
     private final String title;
     private final String content;
-    private final User user;
+    private final long userId;
+    private final String userName;
+    private final String userEmail;
     private final LocalDateTime createdAt;
     private final LocalDateTime modifiedAt;
     // 생성자
@@ -19,7 +21,9 @@ public class CreateScheduleResponse {
         this.scheduleId = scheduleId;
         this.title = title;
         this.content = content;
-        this.user = user;
+        this.userId = user.getId();
+        this.userName = user.getName();
+        this.userEmail = user.getEmail();
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
     }

@@ -4,9 +4,9 @@ import lombok.Getter;
 
 @Getter
 public class DeleteUserRequest {
-    //private final String password;
+    private final String password;
 
-    public DeleteUserRequest() {
-        //this.password = password;
+    public DeleteUserRequest(String password) {
+        this.password = password;
     }
 }

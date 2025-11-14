@@ -10,5 +10,7 @@ public class UpdateScheduleRequest {
     @NotBlank
     private String title;
     @NotBlank
-    private User user;
+    private String content;
+    @NotBlank
+    private String password;
 }

@@ -9,7 +9,6 @@ public class UpdateUserResponse {
     private final long scheduleId;
     private final String name;
     private final String email;
-    //private final String password;
     private final LocalDateTime createdAt;
     private final LocalDateTime modifiedAt;
 
@@ -17,7 +16,6 @@ public class UpdateUserResponse {
         this.scheduleId = scheduleId;
         this.name = name;
         this.email = email;
-        //this.password = password;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
     }

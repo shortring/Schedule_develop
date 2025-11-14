@@ -20,20 +20,17 @@ public class ScheduleDevelop extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-    @Column(length = 50, nullable = false)
-    private String password;
 
     // 생성자
-    public ScheduleDevelop(String title, String content, User user, String password) {
+    public ScheduleDevelop(String title, String content, User user) {
         this.title = title;
         this.content = content;
         this.user = user;
-        this.password = password;
     }
 
-    public void updateSchedule(String title, User user) {
+    public void updateSchedule(String title, String content) {
         this.title = title;
-        this.user = user;
+        this.content = content;
     }
 
     // 기능

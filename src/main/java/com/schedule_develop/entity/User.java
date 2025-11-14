@@ -18,15 +18,15 @@ public class User extends BaseTimeEntity{
     private String name;
     @Column(length = 50, nullable = false)
     private String email;
-    //private String password;
+    private String password;
 //    @OneToMany(mappedBy = "user")
 //    private List<ScheduleDevelop> scheduleDevelopList = new ArrayList<>();
 
     //생성자
-    public User(String name, String email) {
+    public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
-        //this.password = password;
+        this.password = password;
     }
 
     public void updateUser(@NotBlank String name, @Email String email) {

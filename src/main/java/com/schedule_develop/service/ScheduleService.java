@@ -4,6 +4,7 @@ import com.schedule_develop.dto.*;
 import com.schedule_develop.entity.ScheduleDevelop;
 import com.schedule_develop.entity.User;
 import com.schedule_develop.exception.ElementNotFoundException;
+import com.schedule_develop.exception.IllegalPasswordException;
 import com.schedule_develop.repository.ScheduleRepository;
 import com.schedule_develop.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -23,7 +24,7 @@ public class ScheduleService {
     // 기능
     // 일정 생성 및 저장
     @Transactional
-    public CreateScheduleResponse  save(long userId,CreateScheduleRequest request) {
+    public CreateScheduleResponse save(long userId, CreateScheduleRequest request) {
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new ElementNotFoundException("없는 유저입니다.")
         );
@@ -31,8 +32,7 @@ public class ScheduleService {
         ScheduleDevelop schedule = new ScheduleDevelop(
                 request.getTitle(),
                 request.getContent(),
-                user,
-                request.getPassword()
+                user
         );
         ScheduleDevelop savedSchedule = scheduleRepository.save(schedule);
 
@@ -49,10 +49,6 @@ public class ScheduleService {
     // 일정 단 건 조회
     @Transactional
     public GetScheduleResponse findOne(long scheduleId) {
-//        User user = userRepository.findById(userId).orElseThrow(
-//                () -> new ElementNotFoundException("없는 유저입니다.")
-//        );
-
         ScheduleDevelop schedule = scheduleRepository.findById(scheduleId).orElseThrow(
                 () -> new ElementNotFoundException("없는 일정입니다.")
         );
@@ -94,18 +90,17 @@ public class ScheduleService {
         ScheduleDevelop schedule = scheduleRepository.findById(scheduleId).orElseThrow(
                 () -> new ElementNotFoundException("없는 일정입니다.")
         );
-        schedule.updateSchedule(request.getTitle(), request.getUser());
-//        if (schedule.getPassword().equals(request.getUser().getPassword()) {
-//            schedule.updateSchedule(request.getTitle(), request.getUser());
-//        } else {
-//            throw new IllegalPasswordException("잘못된 비밀번호입니다");
-//        }
+
+        if (schedule.getUser().getPassword().equals(request.getPassword())) {
+            schedule.updateSchedule(request.getTitle(), request.getContent());
+        } else {
+            throw new IllegalPasswordException("잘못된 비밀번호입니다");
+        }
 
         return new UpdateScheduleResponse(
                 schedule.getId(),
                 schedule.getTitle(),
                 schedule.getContent(),
-                schedule.getUser(),
                 schedule.getCreatedAt(),
                 schedule.getModifiedAt()
         );
@@ -118,12 +113,10 @@ public class ScheduleService {
                 () -> new ElementNotFoundException("없는 일정입니다.")
         );
 
-        scheduleRepository.deleteById(scheduleId);
-
-//        if (schedule.getPassword().equals(request.getPassword())) {
-//            scheduleRepository.deleteById(scheduleId);
-//        } else {
-//            throw new IllegalPasswordException("잘못된 비밀번호입니다");
-//        }
+        if (schedule.getUser().getPassword().equals(request.getPassword())) {
+            scheduleRepository.deleteById(scheduleId);
+        } else {
+            throw new IllegalPasswordException("잘못된 비밀번호입니다");
+        }
     }
 }

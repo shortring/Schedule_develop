@@ -3,6 +3,7 @@ package com.schedule_develop.service;
 import com.schedule_develop.dto.*;
 import com.schedule_develop.entity.User;
 import com.schedule_develop.exception.ElementNotFoundException;
+import com.schedule_develop.exception.IllegalPasswordException;
 import com.schedule_develop.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.Getter;
@@ -26,8 +27,8 @@ public class UserService {
     public CreateUserResponse save(CreateUserRequest request) {
         User user = new User(
             request.getName(),
-            request.getEmail()
-            //request.getPassword();
+            request.getEmail(),
+            request.getPassword()
         );
 
         User savedUser = userRepository.save(user);
@@ -82,12 +83,15 @@ public class UserService {
                 () -> new ElementNotFoundException("없는 유저입니다.")
         );
 
-        user.updateUser(request.getName(), request.getEmail());
+        if (user.getPassword().equals(request.getPassword())) {
+            user.updateUser(request.getName(), request.getEmail());
+        } else {
+            throw new IllegalPasswordException("잘못된 비밀번호입니다");
+        }
 
         return new UpdateUserResponse(
                 user.getId(),
                 user.getName(),
-                //user.getPassword(),
                 user.getEmail(),
                 user.getCreatedAt(),
                 user.getModifiedAt()
@@ -100,11 +104,11 @@ public class UserService {
                 () -> new ElementNotFoundException("없는 유저입니다.")
         );
 
-//        if (user.getPassword().equals(request.getPassword())) {
-//            scheduleRepository.deleteById(scheduleId);
-//        } else {
-//            throw new IllegalPasswordException("잘못된 비밀번호입니다");
-//        }
+        if (user.getPassword().equals(request.getPassword())) {
+            userRepository.deleteById(userId);
+        } else {
+            throw new IllegalPasswordException("잘못된 비밀번호입니다");
+        }
         userRepository.deleteById(userId);
     }
 

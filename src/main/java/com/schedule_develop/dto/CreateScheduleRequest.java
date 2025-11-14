@@ -11,8 +11,6 @@ public class CreateScheduleRequest {
     private String title;
     @NotBlank
     private String content;
-    @Size(min = 4, max = 16)
-    private String password;
 
     // 생성자
 
