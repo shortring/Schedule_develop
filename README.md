@@ -1,124 +1,51 @@
-[API 명세서 9ecbf85eb9dd4b619274cf735d5a84e0.csv](https://github.com/user-attachments/files/23641651/API.9ecbf85eb9dd4b619274cf735d5a84e0.csv)
-기능,Error,Method,URL,request,response,상태코드
-일정 생성,"NOT_FOUND , 없는 유저입니다.",POST,http://localhost:8080/users/%7BuserId%7D/schedule_develops,"path : userId
+일정 관리 앱 develop 프로젝트
 
-요청 body
-{
-""title"": ""제목"",
-""content"":""내용""
-}","등록 정보
-{
-”ScheduleId"": 아이디,
-""title"": ""제목"",
-""content"": ""내용"",
-""userId"": ""유저 아이디"",
-”userName”: “유저 이름”,
-”userEmail”: “유저 이메일”
-""createdAt"": ""생성일"",
-""modifiedAt"": ""수정일""
-}",200: OK
-일정 선택 조회,"NOT_FOUND, 없는 일정입니다",GET,http://localhost:8080/users/%7BuserId%7D/schedule_developshttp://localhost:8080/schedule_develops/{scheduleId},Path : scheduleId,"단건 응답 정보
-{
-""id"": 아이디,
-""title"": ""제목"",
-""content"": ""내용"",
-""userId"": ""작성 유저 아이디"",
-""userName"": ""작성 유저 이름"",
-""userEmail"": ""작성 유저 이메일"",
-""createdAt"": ""생성일"",
-""modifiedAt"": ""수정일""
-}",200: OK
-일정 수정,"NOT_FOUND, 없는 일정입니다
-UNAUTHORIZED, 잘못된 비밀번호입니다",PUT,http://localhost:8080/users/%7BuserId%7D/schedule_developshttp://localhost:8080/schedule_develops/%7BscheduleId%7D,"path : ""scheduleId"": 아이디
+해당 프로젝트는 스파르타클럽의 내일배움캠프에서 진행하는 과제용 프로젝트입니다.
 
-요청 body
-{
-""title"": ""제목"",
-""content"": ""내용"",
-""password"": ""비밀번호""
-}","수정 정보
+버전에 따라 브랜치를 나누었으며 내용은 아래와 같습니다
 
-{
-""id"": 아이디,
-""title"": ""제목"",
-""content"": ""내용"",
-""createdAt"": ""생성일"",
-""modifiedAt"": ""수정일""
-}",200: OK
-일정 삭제,"NOT_FOUND, 없는 일정입니다
-UNAUTHORIZED, 잘못된 비밀번호입니다",DELETE,http://localhost:8080/users/%7BuserId%7D/schedule_developshttp://localhost:8080/schedule_develops/%7BscheduleId%7D,"path : scheduleId
+Master
+: 최종 구현 합본
 
-요청 body
-{
-""password"": ""비밀번호""
-}",-,200: NO_CONTENT
-일정 목록 조회,"NOT_FOUND, 없는 유저입니다",GET,http://localhost:8080/users/%7BuserId%7D/schedule_develops,"path : userId ","다건 응답 정보
-List
-{
-""id"": 아이디,
-""title"": ""제목"",
-""content"": ""내용"",
-""userName"": ""작성 유저명"",
-""userEmail"": ""작성 유저 이메일"",
-""createdAt"": ""생성일"",
-""modifiedAt"": ""수정일""
-}",200: OK
-유저 선택 조회,"NOT_FOUND , 없는 유저입니다",GET,http://localhost:8080/schedule_develops/%7BscheduleId%7D,path : userId,"응답 정보
-{
-""userId"": 유저 아이디,
-""name"": ""유저명"",
-""email"": ""유저 이메일"",
-""createdAt"": ""생성일"",
-""modifiedAt"": ""수정일""
-}",200: OK
-유저 생성,BAD_REQUEST 이미 사용 중인 이메일입니다.,POST,http://localhost:8080/users,"요청 body
-{
-""name"": ""유저명"",
-”email"":""이메일""
-”password"":""비밀번호""
-}","등록 정보
-{
-""name"": ""유저명"",
-”email"":""이메일"",
-""createdAt"": ""생성일"",
-""modifiedAt"": ""수정일""
-}",200: 정상 등록
-유저 수정,"NOT_FOUND , 없는 유저입니다.",PATCH,http://localhost:8080/schedule_develops/%7BscheduleId%7D,"session에서 받아올 정보
-{
-""id"": ""아이디"",
-”name"": ""이름""
-}
+LV1
+: 일정 CRUD 구현 (필수 구현 기능)
+일정 생성
+일정 조회
+일정 수정
+일정 삭제 기능 구현
+JPA Auditing을 활용하여 생성일과 수정일을 저장합니다.
 
-요청 body
-{
-""name"": ""이름"",
-”email"": ""이메일""
-}","수정 정보
+LV2
+: 유저 CRUD 구현(필수 구현 기능)
+1. 유저 생성
+2. 유저 조회
+3. 유저 수정
+4. 유저 삭제 기능 구현
 
-{
-""id"": 유저 아이디,
-""name"": “이름"",
-”password”: “이메일”,
-""createdAt"": ""생성일"",
-""modifiedAt"": ""수정일""
-}",200: OK
-유저 삭제,"NOT_FOUND , 없는 유저입니다",DELETE,http://localhost:8080/schedule_develops/%7BscheduleId%7D,"session에서 받아올 정보
-{
-""id"": ""아이디"",
-”name"": ""이름""
-}",void,200: NO_CONTENT
-유저 전부 조회,,GET,http://localhost:8080/schedule_develops/%7BscheduleId%7D,-,"응답 정보
-List
-{
-""userId"": 유저 아이디,
-""name"": ""유저명"",
-""email"": ""유저 이메일"",
-""createdAt"": ""생성일"",
-""modifiedAt"": ""수정일""
-}",200: OK
-로그인,"UNAUTHORIZED , 잘못된 이메일, 혹은 비밀번호입니다.",POST,http://localhost:8080/login,"요청 body
-{
-”email"":""이메일""
-”password"":""비밀번호""
-}
-session 생성",void,200: OK
+LV1에서 만든 일정 엔티티에 유저 아이디 필드를 넣어 연관관계를 구축합니다.
+
+LV3
+: 회원가입 기능 구현 (필수 구현 기능)
+LV2에서 만든 유저 엔티티에 비밀번호 필드를 추가합니다.
+
+LV4
+: 로그인 기능 구현 (필수 구현 기능)
+- 세션을 활용하여 로그인 정보를 저장하고 상태를 유지합니다.
+- 인증은 유저 정보와 입력된 이메일, 비밀번호를 대조하는 것으로 처리합니다.
+- 로그인 시 유저 정보와 입력된 정보가 일치하지않을 시 401에러를 반환합니다.
+- LV3에서 만든 회원가입 기능에서 다른 유저가 가지고있는 이메일과 동일한 이메일을 사용하여 회원가입을 시도할 경우 400번 에러를 반환시키고 "이미 사용 중인 이메일입니다."를 출력시킵니다.
+
+api 명세서
+- "api명세서" 파일을 참조해주세요
+
+erd
+<img width="599" height="572" alt="image" src="https://github.com/user-attachments/assets/15d35957-5d79-4bab-a606-9d563e5c7632" />
+
+
+트러블 슈팅 및 해당 과제를 수행하며 공부한 것들을 작성한 TIL블로그 링크
+https://blog.naver.com/shortring/224081574178
+
+https://blog.naver.com/shortring/224071480340
+https://blog.naver.com/shortring/224073979543
+https://blog.naver.com/shortring/224076292806
+https://blog.naver.com/shortring/224079274328
