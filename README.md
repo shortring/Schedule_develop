@@ -39,13 +39,14 @@ api 명세서
 - "api명세서" 파일을 참조해주세요
 
 erd
+
 <img width="599" height="572" alt="image" src="https://github.com/user-attachments/assets/15d35957-5d79-4bab-a606-9d563e5c7632" />
 
 
 트러블 슈팅 및 해당 과제를 수행하며 공부한 것들을 작성한 TIL블로그 링크
-https://blog.naver.com/shortring/224081574178
+- https://blog.naver.com/shortring/224081574178
 
-https://blog.naver.com/shortring/224071480340
-https://blog.naver.com/shortring/224073979543
-https://blog.naver.com/shortring/224076292806
-https://blog.naver.com/shortring/224079274328
+- https://blog.naver.com/shortring/224071480340
+- https://blog.naver.com/shortring/224073979543
+- https://blog.naver.com/shortring/224076292806
+- https://blog.naver.com/shortring/224079274328
